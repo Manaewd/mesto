@@ -1,0 +1,14 @@
+.element__button {
+    background-image: url(../../../images/element__button.svg);
+    background-color: #FFFFFF;
+    background-repeat: no-repeat;
+    border: none;
+    height: 19px;
+    width: 22px;
+    display: block;
+    padding-right: 17px;
+}
+
+.element__button:hover {
+    opacity: 0.5;
+}
