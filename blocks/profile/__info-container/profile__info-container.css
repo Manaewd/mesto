@@ -1,7 +1,6 @@
 .profile__info-container {
     display: flex;
     justify-content: center;
-    align-items: center;
     margin-top: 54px;
     gap: 18px;
     align-items: left;
