@@ -15,6 +15,8 @@ function handleFormSubmit(evt) {
 }
 const openPopup = function() {
     popupElement.classList.add('popup_opened');
+    popupName.value = profileTitle.textContent;
+    popupJob.value = profileSubtitle.textContent;
 }
 const closePopup = function() {
     popupElement.classList.remove('popup_opened');
