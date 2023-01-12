@@ -7,6 +7,7 @@
     width: 22px;
     display: block;
     padding-right: 17px;
+    cursor: pointer;
 }
 
 .element__button:hover {
