@@ -1,6 +1,5 @@
 .profile__info-container {
     display: flex;
-    justify-content: center;
     margin-top: 54px;
     gap: 18px;
 }
@@ -9,5 +8,6 @@
     .profile__info-container {
         margin-top: 22px;
         gap: 10px;
+        justify-content: center;
     }
   }
