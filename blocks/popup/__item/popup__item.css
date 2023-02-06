@@ -1,5 +1,5 @@
 .popup__item {
-    margin-bottom: 30px;
+    margin: 0 auto 30px 22px;
     min-height: 27px;
     min-width: 358px;
     border: none;
@@ -12,6 +12,12 @@
 .popup__item:last-of-type {
     margin-bottom: 0;
 }
+
+@media screen and (min-width: 1023px) {
+    .popup__item {
+        margin: 0 auto 30px 36px;
+    }
+  }
 
 @media screen and (max-width: 1279px){
     .popup__item {
