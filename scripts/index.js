@@ -1,14 +1,14 @@
 //попапы
-const popupEditProfile = document.querySelector('.popup_edit_profile');
-const popupAddProfile = document.querySelector('.popup_add-profile');
+const profilePopup = document.querySelector('.popup_edit_profile');
+const cardPopup = document.querySelector('.popup_add-profile');
 //btn открыть
-const popupOpnBtnElement = document.querySelector('.profile__edit-button');
-const popupAddButton = document.querySelector('.profile__add-button');
+const OpenEditProfile = document.querySelector('.profile__edit-button');
+const OpenAddImage = document.querySelector('.profile__add-button');
 //btn закрыть
-const popupCloseButton = document.querySelectorAll('.popup__close');
+const closeButtons = document.querySelectorAll('.popup__button-close');
 //form
-const popupEditForm = document.querySelector('.popup__content');
-const popupAddForm = document.querySelector('.popup__add-card');
+const popupEditForm = document.querySelector('.popup__form-edit');
+const popupAddForm = document.querySelector('.popup__form-add');
 //редактировать профиль
 const profileTitle = document.querySelector('.profile__title');
 const profileSubtitle = document.querySelector('.profile__subtitle');
@@ -18,25 +18,25 @@ const popupSubtitle = document.querySelector('.popup__item_type_job');
 const popupAddName = document.querySelector('.popup__item_add_name');
 const popupAddUrl = document.querySelector('.popup__item_add_url');
 const popupAddImage = document.querySelector('.popup_add-image');
-const popupImage = document.querySelector('.popup__image');
-const popupImageName = document.querySelector('popup__image-name');
+const popupFullScreenImage = document.querySelector('.popup__image');
+const popupDescription = document.querySelector('popup__image-name');
 
 function openPopup(popup) {
     popup.classList.add('popup_opened');
 };
-popupOpnBtnElement.addEventListener('click', function openEditPopup() {
-    openPopup(popupEditProfile);
+OpenEditProfile.addEventListener('click', function openEditPopup() {
+    openPopup(profilePopup);
     popupTitle.value = profileTitle.textContent;
     popupSubtitle.value = profileSubtitle.textContent;
 });
-popupAddButton.addEventListener('click', function() {
-    openPopup(popupAddProfile);
+OpenAddImage.addEventListener('click', function() {
+    openPopup(cardPopup);
 });
 
 function closePopup(popup) {
     popup.classList.remove('popup_opened');
 };
-popupCloseButton.forEach(function(button) {
+closeButtons.forEach(function(button) {
     const popup = button.closest('.popup');
     button.addEventListener('click', function() {
         closePopup(popup)
@@ -46,7 +46,7 @@ popupEditForm.addEventListener('submit', function submit(evt) {
     evt.preventDefault();
     profileTitle.textContent = popupTitle.value;
     profileSubtitle.textContent = popupSubtitle.value;
-    closePopup(popupEditProfile)
+    closePopup(profilePopup)
 });
 const initialCards = [{
     name: 'Архыз',
@@ -86,8 +86,9 @@ function mestoElement(name, link) {
     const elementImage = mestoElement.querySelector('.element__image');
     elementImage.addEventListener('click', function() {
         openPopup(popupAddImage);
-        popupImage.src = link;
-        popupImageName.textContent = name;
+        popupFullScreenImage.src = link;
+        popupDescription.textContent = name;
+        popupFullScreenImage.setAttribute('name', 'alt');
     })
     return mestoElement;
 }
@@ -98,5 +99,5 @@ popupAddForm.addEventListener('submit', function(evt) {
     evt.preventDefault();
     mestoElements.prepend(mestoElement(popupAddName.value, popupAddUrl.value));
     evt.target.reset();
-    closePopup(popupAddProfile);
+    closePopup(cardPopup);
 })
