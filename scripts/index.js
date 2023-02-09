@@ -2,8 +2,8 @@
 const profilePopup = document.querySelector('.popup_edit_profile');
 const cardPopup = document.querySelector('.popup_add-profile');
 //btn открыть
-const OpenEditProfile = document.querySelector('.profile__edit-button');
-const OpenAddImage = document.querySelector('.profile__add-button');
+const profileEditOpen = document.querySelector('.profile__edit-button');
+const profileAddImageOpen = document.querySelector('.profile__add-button');
 //btn закрыть
 const closeButtons = document.querySelectorAll('.popup__button-close');
 //form
@@ -19,17 +19,17 @@ const popupAddName = document.querySelector('.popup__item_add_name');
 const popupAddUrl = document.querySelector('.popup__item_add_url');
 const popupAddImage = document.querySelector('.popup_add-image');
 const popupFullScreenImage = document.querySelector('.popup__image');
-const popupDescription = document.querySelector('popup__image-name');
+const popupDescription = document.querySelector('.popup__image-name');
 
 function openPopup(popup) {
     popup.classList.add('popup_opened');
 };
-OpenEditProfile.addEventListener('click', function openEditPopup() {
+profileEditOpen.addEventListener('click', function openEditPopup() {
     openPopup(profilePopup);
     popupTitle.value = profileTitle.textContent;
     popupSubtitle.value = profileSubtitle.textContent;
 });
-OpenAddImage.addEventListener('click', function() {
+profileAddImageOpen.addEventListener('click', function() {
     openPopup(cardPopup);
 });
 
@@ -73,8 +73,8 @@ const elementTemplate = document.querySelector('#template').content;
 function mestoElement(name, link) {
     const mestoElement = elementTemplate.cloneNode(true);
     mestoElement.querySelector('.element__title').textContent = name;
-    mestoElement.querySelector('.element__image').alt = name;
     mestoElement.querySelector('.element__image').src = link;
+    mestoElement.querySelector('.element__image').setAttribute('alt', 'Фотография ' + name);
     const trashButton = mestoElement.querySelector('.element__trash-button');
     trashButton.addEventListener('click', function(evt) {
         evt.target.closest('.element').remove();
@@ -88,7 +88,7 @@ function mestoElement(name, link) {
         openPopup(popupAddImage);
         popupFullScreenImage.src = link;
         popupDescription.textContent = name;
-        popupFullScreenImage.setAttribute('name', 'alt');
+        popupFullScreenImage.setAttribute('alt', 'Фотография ' + name);
     })
     return mestoElement;
 }
