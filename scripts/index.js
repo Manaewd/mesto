@@ -1,11 +1,12 @@
 //попапы
 const profilePopup = document.querySelector('.popup_edit_profile');
 const cardPopup = document.querySelector('.popup_add-profile');
-//btn открыть
+const popups = document.querySelectorAll('.popup');
+//bbuttons
 const profileEditOpen = document.querySelector('.profile__edit-button');
-const profileAddImageOpen = document.querySelector('.profile__add-button');
-//btn закрыть
+const submitButtonSelector = document.querySelector('.popup__button-save')
 const closeButtons = document.querySelectorAll('.popup__button-close');
+const profileAddImageOpen = document.querySelector('.profile__add-button');
 //form
 const popupEditForm = document.querySelector('.popup__form-edit');
 const popupAddForm = document.querySelector('.popup__form-add');
@@ -21,8 +22,23 @@ const popupAddImage = document.querySelector('.popup_add-image');
 const popupFullScreenImage = document.querySelector('.popup__image');
 const popupDescription = document.querySelector('.popup__image-name');
 
+function closeWithEscape(evt) {
+    if (evt.key === 'Escape') {
+        const popup = document.querySelector('.popup_opened');
+        closePopup(popup);
+    };
+}
+popups.forEach((popups) => {
+    popups.addEventListener('click', (evt) => {
+        if (evt.currentTarget === evt.target) {
+            closePopup(evt.currentTarget);
+        }
+    });
+});
+
 function openPopup(popup) {
     popup.classList.add('popup_opened');
+    document.addEventListener('keydown', closeWithEscape);
 };
 profileEditOpen.addEventListener('click', function openEditPopup() {
     openPopup(profilePopup);
@@ -32,9 +48,16 @@ profileEditOpen.addEventListener('click', function openEditPopup() {
 profileAddImageOpen.addEventListener('click', function() {
     openPopup(cardPopup);
 });
+profileAddImageOpen.addEventListener('click', function addFormSubmit() {
+    openPopup(cardPopup);
+    const submitButtonSelector = cardPopup.querySelector('.popup__button-save')
+    submitButtonSelector.setAttribute('disabled', true);
+    submitButtonSelector.classList.add('popup__button-disabled');
+})
 
 function closePopup(popup) {
     popup.classList.remove('popup_opened');
+    document.removeEventListener('keydown', closeWithEscape)
 };
 closeButtons.forEach(function(button) {
     const popup = button.closest('.popup');
