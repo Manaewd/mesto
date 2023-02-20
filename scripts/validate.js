@@ -39,7 +39,7 @@ function toggleButton(form, config) {
     const buttonSubmit = form.querySelector(config.submitButtonSelector);
     const isValidForm = form.checkValidity();
     buttonSubmit.disabled = !isValidForm;
-    buttonSubmit.classList.toggle('popup__button-disabled', !isValidForm);
+    buttonSubmit.classList.toggle(config.inactiveButtonClass, !isValidForm);
 }
 
 function addInputListners(form, config) {
@@ -51,20 +51,3 @@ function addInputListners(form, config) {
     });
 }
 enableValidation(formValidationConfig);
-const popup = document.querySelectorAll('.popup');
-
-function closeWithEscape(evt) {
-    popup.forEach((item) => {
-        if (evt.key === 'Escape') {
-            closePopup(item);
-        }
-    });
-}
-document.addEventListener('keydown', closeWithEscape);
-popup.forEach((popup) => {
-    popup.addEventListener('click', (evt) => {
-        if (evt.currentTarget === evt.target) {
-            closePopup(evt.currentTarget);
-        }
-    });
-});
