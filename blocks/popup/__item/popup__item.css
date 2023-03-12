@@ -1,8 +1,10 @@
 .popup__item {
-    margin: 13px 22px 0 22px;
+    margin: 31px 22px 0;
     min-height: 27px;
-    min-width: 358px;
+    max-width: 238px;
+    width: 100%;
     border: none;
+    display: block;
     font-weight: 400;
     font-size: 14px;
     line-height: 17px;
@@ -19,12 +21,7 @@
 
 @media screen and (min-width: 1023px) {
     .popup__item {
+        max-width: 358px;
         margin: 30px 36px 0 36px;
-    }
-  }
-
-@media screen and (max-width: 1023px){
-    .popup__item {
-        min-width: 238px;
     }
   }

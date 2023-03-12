@@ -24,6 +24,11 @@ export default class Card {
     _setEventListener() {
 
       this._cardImage = this._element.querySelector('.element__image');
+      this._cardTitle = this._element.querySelector('.element__title');
+
+      this._cardTitle.textContent = this._name;
+      this._cardImage.alt = this._name;
+      this._cardImage.src = this._link;
   
       this._cardImage.addEventListener('click', () => {
         this._handleCardClick(this._name, this._link)
@@ -49,20 +54,12 @@ export default class Card {
       this._element = null;
     }
     _handleButtonLike() {
-      this.buttonLike.classList.toggle('element__button_type_active');
+      this._buttonLike.classList.toggle('element__button_type_active');
     }
 
     generateCard() {
       this._element = this._getTemplate();
       this._setEventListener();
-    
-      this._element.querySelector('.element__title').textContent = this._name;
-      this._element.querySelector('.element__image').alt = this._name;
-      this._element.querySelector('.element__image').src = this._link;
-
-      // this._link = this._element.querySelector('.element__image').src;
-      // this._name = this._element.querySelector('.element__title').textContent;
-      // this._name = this._element.querySelector('.element__title').alt;
 
       // Вернём элемент наружу
       return this._element;

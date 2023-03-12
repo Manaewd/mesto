@@ -1,6 +1,6 @@
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
-import { initialCards, formValidationConfig } from './validate.js'
+import { initialCards, formValidationConfig } from './constants.js';
 
 //попапы
 const profilePopup = document.querySelector('.popup_edit_profile');
@@ -97,8 +97,6 @@ popupEditForm.addEventListener('submit', function submit(evt) {
     openPopup(popupAddImage);
     popupDescription.textContent = name;
     popupFullScreenImage.src = link;
-    popupDescription.textContent = name;
-    openPopup(popupFullScreenImage);
   };
   
   const mestoElements = document.querySelector('.elements');
@@ -121,7 +119,6 @@ popupEditForm.addEventListener('submit', function submit(evt) {
   data.name = popupAddName.value;
   
   mestoElements.prepend(createCard(data, '.template', handleCardClick));
-  popupAddForm.reset();
 
   closePopup(cardPopup);
 })
