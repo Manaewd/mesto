@@ -7,7 +7,10 @@
     color: #FF0000;
     min-width: 164px;
     min-height: 12px;
-    margin: 5px auto 0 22px;
+    margin: 5px 22px;
+    width: 100%;
+    max-width: 238px;
+    position: absolute;
 }
 
 
