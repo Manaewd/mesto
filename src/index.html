@@ -4,16 +4,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="pages/index.css">
     <title>Место</title>
 </head>
 <body class="page">
   <header class="header">
-    <img class="header__logo" src="./images/logo.svg" alt="Логотип">
+    <img class="header__logo" src="<%=require('./images/logo.svg')%>" alt="Логотип">
   </header>
   <main>
     <section class="profile">
-      <img class="profile__image" src="./images/profile__image.png" alt="Аватар">
+      <img class="profile__image" src="<%=require('./images/profile__image.png')%>" alt="Аватар">
       <div class="profile__info">
         <div class="profile__info-container">
           <h1 class="profile__title">Жак-Ив Кусто</h1>
@@ -46,13 +45,9 @@
       <form method="post" class="popup__form popup__form-edit" name="popup__form-edit" novalidate>
         <h2 class="popup__title">Редактировать профиль</h2>
         <input id="input-edit-name" required minlength="2" maxlength="40" type="text" name="profile__title" placeholder="Ваше имя" class="popup__item popup__item_type_name">
-
         <span id="input-edit-name-error" class="popup__error"></span>
-
         <input id="input-job" required minlength="2" maxlength="200" type="text" name="profile__subtitle" placeholder="Сфера деятельности" class="popup__item popup__item_type_job">
-
         <span id="input-job-error" class="popup__error"></span>
-
         <button type="submit" class="popup__button-save">Сохранить</button>
       </form>
     </div>
@@ -63,13 +58,9 @@
       <form method="post" class="popup__form popup__form-add" id="form-add-card" name="popup__form-add" novalidate>
         <h2 class="popup__title">Новое место</h2>
         <input id="input-add-name" required minlength="2" maxlength="30" type="text" name="profile__title" placeholder="Название" class="popup__item popup__item_add_name">
-
         <span id="input-add-name-error" class="popup__error"></span>
-
         <input id="input-link" required type="url" name="profile__subtitle" placeholder="Ссылка на картинку" class="popup__item popup__item_add_url">
-
         <span id="input-link-error" class="popup__error"></span>
-
         <button type="submit" class="popup__button-save" disabled>Создать</button>
       </form>
     </div>
@@ -81,7 +72,5 @@
       <h3 class="popup__image-name"></h3>
     </div>
   </div>
-  <script type="module" src="./scripts/index.js"></script>
-  <!-- <script src="./scripts/validate.js"></script> -->
 </body>
 </html>
