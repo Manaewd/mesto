@@ -6,6 +6,12 @@ export const formValidationConfig = {
     inactiveButtonClass: 'popup__button-disabled',
 };
 
+export const profileForm = document.querySelector('.popup__form-edit');
+export const popupAddForm = document.querySelector('#form-add-card');
+export const popupEditProfileOpen = document.querySelector('.profile__edit-button');
+export const profileAddImageOpen = document.querySelector('.profile__add-button');
+
+
 export const initialCards = [{
     name: 'Архыз',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
