@@ -8,8 +8,8 @@ import '../pages/index.css';
 
 
 
-import { initialCards, formValidationConfig } from '../components/constants.js';
-import { profileForm, popupAddForm, popupEditProfileOpen, profileAddImageOpen } from '../components/constants.js';
+import { initialCards, formValidationConfig } from '../utils/elements.js';
+import { profileForm, popupAddForm, popupEditProfileOpen, profileAddImageOpen } from '../utils/constants.js';
 
 const popupFormEditValidator = new FormValidator(formValidationConfig, profileForm);
 popupFormEditValidator.enableValidation();
@@ -40,8 +40,8 @@ const userInfo = new UserInfo({
 const popupEditForm = new PopupWithForm({
   handleSubmitForm: (data) => {
     userInfo.setUserInfo({
-      name: data.userName,
-      job: data.userJob
+      name: data.profilename,
+      job: data.profilejob
     });
   }
 }, '.popup_edit_profile')
