@@ -6,8 +6,6 @@ import { FormValidator } from '../components/FormValidator.js';
 import { UserInfo } from '../components/UserInfo.js';
 import '../pages/index.css';
 
-
-
 import { initialCards, formValidationConfig } from '../utils/elements.js';
 import { profileForm, popupAddForm, popupEditProfileOpen, profileAddImageOpen } from '../utils/constants.js';
 
