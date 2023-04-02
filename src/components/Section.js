@@ -18,8 +18,4 @@ constructor({ data, renderer }, containerSelector) {
       prependItem(element) {
         this._container.prepend(element);
       }
-
-    //   addItem(element) {
-    //     this._container.prepend(element);
-    // }
 };

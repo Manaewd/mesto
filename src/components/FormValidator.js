@@ -12,7 +12,6 @@ export class FormValidator {
 
 
 _setEventListeners() {
-    
     this._inputList.forEach((item) => {
       item.addEventListener('input', () => {
         this._checkInputValidity(item)

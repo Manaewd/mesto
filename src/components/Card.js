@@ -60,6 +60,4 @@ export class Card {
     _handleButtonLike() {
       this._buttonLike.classList.toggle('element__button_type_active');
     };
-
-
   }
