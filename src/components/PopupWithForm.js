@@ -8,9 +8,13 @@ export class PopupWithForm extends Popup {
         this._inputList = this._popupForm.querySelectorAll('.popup__item');
         this._submitButon = this._popupForm.querySelector('.popup__button-save');
 
+        // +
+        this._submitButonTxt = this._submitButon.textContent;
+
         this._handleSubmitForm = handleSubmitForm;
     };
     
+    // Метод сбора данных инпутов формы
     _getInputValues() {
         this._inputValues = {};
         this._inputList.forEach((input) => {
@@ -26,11 +30,21 @@ export class PopupWithForm extends Popup {
         });
       }
 
+      // Метод закрытия попапа со сбросом формы
       close() {
         this._popupForm.reset();
         super.close();
       }
+      // +
+      renderLoading(isLoading) {
+        if(isLoading) {
+          this._submitButon.textContent = 'Сохранение...';
+        } else {
+          this._submitButon.textContent = this._submitButonTxt;
+        }
+      }
 
+      // Метод установки слушателей 
       setEventListeners() {
         super.setEventListeners()
         this._popupForm.addEventListener('submit', (evt) => {

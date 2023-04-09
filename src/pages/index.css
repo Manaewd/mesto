@@ -22,7 +22,10 @@
 @import url(../blocks/element/__title/element__title.css);
 @import url(../blocks/element/__button/element__button.css);
 @import url(../blocks/element/__trash-button/element__trash-button.css);
+@import url(../blocks/element/__trash-button/_active/element__trash-button_active.css);
 @import url(../blocks/element/__button/_type_active/element__button_type_active.css);
+@import url(../blocks/element/__container/element__container-like.css);
+@import url(../blocks/element/__like-meter/element__like-meter.css);
 /* footer  */
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);

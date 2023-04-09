@@ -1,20 +1,21 @@
 export class Section {
-constructor({ data, renderer }, containerSelector) {
-  this._items = data;
+constructor({ renderer }, containerSelector) {
     this._renderer = renderer;
     this._container = document.querySelector(containerSelector);
 };
-
-    renderItems() {
-      this._items.forEach(item => {
+    // Отрисовка контента
+    renderItems(element) {
+      element.forEach((item) => {
           this._renderer(item);
         });
       };
 
-      addItem(element) {
-        this._container.append(element);
+      // Метод добавления контента на странице в конец
+      addItem(item) {
+        this._container.append(item);
       }
     
+      // Метод добавления контента на странице в начало
       prependItem(element) {
         this._container.prepend(element);
       }
