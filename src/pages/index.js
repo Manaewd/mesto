@@ -4,46 +4,105 @@ import { PopupWithImage } from '../components/PopupWithImage.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
 import { FormValidator } from '../components/FormValidator.js';
 import { UserInfo } from '../components/UserInfo.js';
+import { Api } from '../components/Api.js';
+// import PopupWithSubmit from '../components/PopupWithSubmit.js';
 import '../pages/index.css';
 
-import { initialCards, formValidationConfig } from '../utils/elements.js';
+import { formValidationConfig } from '../utils/elements.js';
 import { profileForm, popupAddForm, popupEditProfileOpen, profileAddImageOpen } from '../utils/constants.js';
 
-const popupFormEditValidator = new FormValidator(formValidationConfig, profileForm);
-popupFormEditValidator.enableValidation();
-
-const validationAddCard = new FormValidator(formValidationConfig, popupAddForm );
-validationAddCard.enableValidation();
-
-
+// Экземпляр поапа картинки
 const popupImage = new PopupWithImage('.popup_add-image')
-
-function createCard(data, templateSelector, openPopup) {
-  const card = new Card(data, templateSelector, openPopup);
-  const cardElement = card.generateCard();
-
-
-  return cardElement
-}
 
 export function handleCardClick(name, link) {
   popupImage.open(name, link)
 }
 
+const popupFormEditValidator = new FormValidator(formValidationConfig, profileForm);
+const validationAddCard = new FormValidator(formValidationConfig, popupAddForm );
+
+popupFormEditValidator.enableValidation();
+validationAddCard.enableValidation();
+
+const api = new Api({
+  url: 'https://mesto.nomoreparties.co/v1/cohort-62',
+  headers: {
+    authorization: '086b5009-a20c-4a53-9a96-989f60c0bcfe',
+    'Content-Type': 'application/json'
+  }
+});
+
 const userInfo = new UserInfo({
   selectorName: '.profile__title',
-  selectorJob: '.profile__subtitle'
+  selectorJob: '.profile__subtitle',
+  selectorAvatar: '.profile__image'
 });
- 
+
+// Рендер данных с сервера
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+.then(([data, cards]) => {
+  userId = data._id;
+  userInfo.setUserInfo(data);
+  cardSections.renderItems(cards)
+})
+.catch((err) => console.log(err))
+
+let userId;
+
+//+ Функция создания экземпляра карточки
+function createCard(data, templateSelector, openPopup, userId) {
+  const card = new Card(data, templateSelector, openPopup,
+    () => {
+      api.deleteCard(data._id)
+      .then(() =>{
+        card.deleteCard()
+      }).catch((err) => console.log(err))
+    },
+    () => { 
+      if (!card.isLiked()) {
+      api.likeCard(data._id)
+      .then((data) => {
+        card.updateLikeState(data)
+        card.updateLengthLikes()
+      })
+      .catch((err) => console.log(err))
+    } else {
+      api.deleteLike(data._id)
+      .then((data) => {
+        card.updateLikeState(data)
+        card.updateLengthLikes()
+      })
+      .catch((err) => console.log(err))
+    }},
+    userId);
+    
+  const cardElement = card.generateCard();
+
+  return cardElement
+}
+
+// const popupEditForm = new PopupWithForm({
+//   handleSubmitForm: (data) => {
+//     userInfo.setUserInfo({
+//       name: data.profilename,
+//       job: data.profilejob
+//     });
+//   }
+// }, '.popup_edit_profile')
+
+//+ // Экземпляр попапа добавления картинки
 const popupEditForm = new PopupWithForm({
   handleSubmitForm: (data) => {
-    userInfo.setUserInfo({
-      name: data.profilename,
-      job: data.profilejob
-    });
+    //  popupEditForm.renderLoading(true)
+    api.setUserInfo(data)
+    .then((res) => {
+      userInfo.setUserInfo(res);
+      popupEditForm.close();
+    })
+    .catch((err) => console.log(err))
+    // .finally(() => popupEditForm.renderLoading(false));
   }
 }, '.popup_edit_profile')
-
 
 popupEditProfileOpen.addEventListener('click', () => {
   const profileEdit = userInfo.getUserInfo();
@@ -52,21 +111,35 @@ popupEditProfileOpen.addEventListener('click', () => {
   popupFormEditValidator.resetValidation();
 })
 
-
+// Создание экземпляра секции
 const cardSections = new Section({
-  data: initialCards,
   renderer: (item) => {
-    cardSections.addItem(createCard(item, '.template', handleCardClick));
+    cardSections.addItem(createCard(item, '.template', handleCardClick, userId));
   }
 }, '.elements')
 
-cardSections.renderItems();
 
+// const addCardFormSubmit = new PopupWithForm({
+//   handleSubmitForm: (item) => {
+//     api.cardSections.prependItem((createCard(item, '.template', handleCardClick)));
+//   }
+// }, '.popup_add-profile')
+
+// +
 const addCardFormSubmit = new PopupWithForm({
   handleSubmitForm: (item) => {
-    cardSections.prependItem((createCard(item, '.template', handleCardClick)));
+    // addCardFormSubmit.renderLoading(true)
+    api.addNewCard(item)
+      .then((item) => {
+        cardSections.prependItem((createCard(item, '.template', handleCardClick, userId)));
+        addCardFormSubmit.close();
+      })
+      .catch((err) => console.log(err))
+      // .finally(() => addCardFormSubmit.renderLoading(false));
   }
 }, '.popup_add-profile')
+
+
 
 
 profileAddImageOpen.addEventListener('click', function openTypeAddPhotoPopup() {
@@ -78,97 +151,3 @@ profileAddImageOpen.addEventListener('click', function openTypeAddPhotoPopup() {
 popupImage.setEventListeners();
 popupEditForm.setEventListeners();
 addCardFormSubmit.setEventListeners();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const popupImage = new PopupWithImage('.popup_add-image');
-
-//   //создание карточки
-//   const createCard = (data) => {
-//     const card = new Card(data, '.template', () => {
-//         popupImage.open(data);
-//     });
-
-//     return card.generateCard();
-//   }
-// // создание новой секции
-//   const cardSection = new Section({
-//     renderer: (card) => {
-//         cardSection.addItem(createCard(card));
-//     },
-//   }, '.elements'
-//   );
-//   cardSection.renderItems(initialCards);
-
-// // кнопки открытия попап
-// const profileEditOpen = document.querySelector('.profile__edit-button');
-// const profileAddImageOpen = document.querySelector('.profile__add-button');
-
-// // получение формы
-// const userInfo = new UserInfo({
-//     selectorName: '.profile__title',
-//     selectorJob: '.profile__subtitle'
-//   })
-
-// // создание попап редактирования
-// const popupEditForm = new PopupWithForm('.popup_edit_profile',
-// {
-//     handleSubmitForm: (name, job) => {
-//       userInfo.setUserInfo({ name, job });
-//     }
-//   });
-//   popupEditForm.setEventListeners();
-
-// // открытие попап редактирования
-//   profileEditOpen.addEventListener('click', () => {
-//     popupEditForm.open();
-//   });
-
-// // создание попап добавления карточки
-//   const popupAddForm = new PopupWithForm('.popup_add-profile', {
-//     handleSubmitForm: ({ name, link }) => {
-//       const card = createCard()
-//     cardSection.addItem(createCard({
-//         name: name,
-//         link: link,
-//         alt: name
-//     }))
-//     }
-//   })
-
-//   // открытие попап добавления карточки
-//   profileAddImageOpen.addEventListener('click', () => {
-//     popupAddForm.open();
-//   })
-
-// popupImage.setEventListeners();
-
-// popupAddForm.setEventListeners();
-
-
-
-
-// const popupFormEditValidator = new FormValidator(formValidationConfig, popupEditForm);
-// popupFormEditValidator.enableValidation();
-
-// const popupFormAddValidator = new FormValidator(formValidationConfig, popupAddForm);
-// popupFormAddValidator.enableValidation();
