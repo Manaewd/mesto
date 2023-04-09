@@ -18,7 +18,10 @@
 .element__title{color:#000;font-size:24px;font-weight:900;line-height:29px;margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .element__button{background-color:#fff;background-image:url(images/element__button.87ed371465c7a6a1cd01.svg);background-repeat:no-repeat;border:none;cursor:pointer;display:flex;height:19px;padding-right:17px;width:22px}.element__button:hover{opacity:.5}
 .element__trash-button{background-color:transparent;background-image:url(images/trash-button.823b0cf1b0b7e9cb7cad.svg);background-position:50%;background-repeat:no-repeat;border:none;cursor:pointer;height:19px;margin:20px 20px 0 0;position:absolute;right:0;width:18px}.element__trash-button:hover{opacity:.5}
+.element__trash-button_active{visibility:visible}
 .element__button_type_active{background-image:url(images/like-active.e787eeb70bb65b7b453a.svg)}
+
+.element__like-meter{color:#000;font-size:13px;font-weight:400;letter-spacing:0;line-height:16px;margin:0;padding-top:3px;text-align:center}
 .footer{margin:0 auto;max-width:880px}@media screen and (max-width:580px){.footer{min-width:282px}}@media screen and (min-width:581px) and (max-width:879px){.footer{max-width:581px}}
 .footer__copyright{color:#545454;font-size:18px;font-weight:400;line-height:22px;margin:67px 0 60px;max-width:318px}@media screen and (max-width:1023px){.footer__copyright{font-size:14px;line-height:17px;margin:48px auto 36px 19px;max-width:282px}}
 .popup{align-items:center;background-color:rgba(0,0,0,.5);display:flex;flex-direction:column;height:100%;justify-content:center;left:0;opacity:0;position:fixed;top:0;transition:.5s;visibility:hidden;width:100%}
