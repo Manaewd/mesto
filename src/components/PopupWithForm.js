@@ -9,7 +9,7 @@ export class PopupWithForm extends Popup {
         this._submitButon = this._popupForm.querySelector('.popup__button-save');
 
         // +
-        this._submitButonTxt = this._submitButon.textContent;
+        this._submitButonText = this._submitButon.textContent;
 
         this._handleSubmitForm = handleSubmitForm;
     };
@@ -35,12 +35,12 @@ export class PopupWithForm extends Popup {
         this._popupForm.reset();
         super.close();
       }
-      // +
+      
       renderLoading(isLoading) {
         if(isLoading) {
           this._submitButon.textContent = 'Сохранение...';
         } else {
-          this._submitButon.textContent = this._submitButonTxt;
+          this._submitButon.textContent = this._submitButonText;
         }
       }
 
