@@ -59,9 +59,9 @@ export class Card {
   updateLengthLikes() {
     this._likeMeter.textContent = this._likes.length;
     if (this.isLiked()) {
-      this._buttonLike.classList.add('.element__button_type_active');
+      this._buttonLike.classList.add('element__button_type_active');
     } else {
-      this._buttonLike.classList.remove('.element__button_type_active');
+      this._buttonLike.classList.remove('element__button_type_active');
     }
   }
 
