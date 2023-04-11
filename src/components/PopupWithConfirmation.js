@@ -1,17 +1,17 @@
 import Popup from "./Popup.js";
 
-export default class PopupWithConfirmation extends Popup {
+export class PopupWithConfirmation extends Popup {
   constructor(popupSelector) {
     super(popupSelector);
 
-    this._popupButtonSave = this._popup.querySelector('.popup__button-save')
+    this._popupButton = this._popup.querySelector('.popup__button-save')
   }
 
   renderLoading(isLoading) {
     if (isLoading) {
-      this._popupButtonSave.textContent = 'Удаление...';
+      this._popupButton.textContent = 'Удаление...';
     } else {
-      this._popupButtonSave.textContent = 'Да';
+      this._popupButton.textContent = 'Да';
     }
   }
 
@@ -21,7 +21,7 @@ export default class PopupWithConfirmation extends Popup {
 
   setEventListeners() {
     super.setEventListeners();
-    this._popupButtonSave.addEventListener('click', () => {
+    this._popupButton.addEventListener('click', () => {
       this._submitCallback();
     });
   }
