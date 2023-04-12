@@ -23,6 +23,6 @@ export class PopupWithConfirmation extends Popup {
     super.setEventListeners();
     this._popupButton.addEventListener('click', () => {
       this._submitCallback();
-    });
+    })
   }
   }

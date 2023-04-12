@@ -54,56 +54,12 @@ const cardSections = new Section({
 }, '.elements')
 
 
-//+ Функция создания экземпляра карточки
-function createCard(data, templateSelector, openPopup, userId) {
-  const card = new Card(data, templateSelector, openPopup,  
-    () => {
-      popupDeleteCard.renderLoading(true);
-      api.deleteCard(data._id)
-      .then(() =>{
-        card.deleteCard()
-        popupDeleteCard.close()
-      }).catch((err) => console.log(err))
-      .finally(() => popupDeleteCard.renderLoading(false)),
-      popupDeleteCard.open()
-    },
-    () => { 
-      if (!card.isLiked()) {
-      api.likeCard(data._id)
-      .then((data) => {
-        card.updateLikeState(data)
-        card.updateLengthLikes()
-      })
-      .catch((err) => console.log(err))
-    } else {
-      api.deleteLike(data._id)
-      .then((data) => {
-        card.updateLikeState(data)
-        card.updateLengthLikes()
-      })
-      .catch((err) => console.log(err))
-    }},
-    userId);
-    
-  const cardElement = card.generateCard();
-
-  return cardElement
-}
-
-
-
-const popupDeleteCard = new PopupWithConfirmation('.popup_delete-card');
-popupDeleteCard.setEventListeners();
-
-
 // Экземпляр поапа картинки
 const popupImage = new PopupWithImage('.popup_add-image')
 
 export function handleCardClick(name, link) {
   popupImage.open(name, link)
 }
-
-
 
  // Экземпляр попапа добавления 
 const popupEditForm = new PopupWithForm({
@@ -165,6 +121,47 @@ profileAvatar.addEventListener('click', () => {
   popupEditAvatar.open();
 })
 
+
+//+ Функция создания экземпляра карточки
+function createCard(data, templateSelector, openPopup, userId) {
+  const card = new Card(data, templateSelector, openPopup,  
+    () => {
+      popupDeleteCard.setConfirm(() =>{
+        popupDeleteCard.renderLoading(true);
+      api.deleteCard(data._id)
+      .then(() =>{
+        card.deleteCard();
+        popupDeleteCard.close();
+      }).catch((err) => console.log(err))
+      .finally(() => popupDeleteCard.renderLoading(false))
+    })
+    popupDeleteCard.open()
+  },
+    () => { 
+      if (!card.isLiked()) {
+      api.likeCard(data._id)
+      .then((data) => {
+        card.updateLikeState(data)
+        card.updateLengthLikes()
+      })
+      .catch((err) => console.log(err))
+    } else {
+      api.deleteLike(data._id)
+      .then((data) => {
+        card.updateLikeState(data)
+        card.updateLengthLikes()
+      })
+      .catch((err) => console.log(err))
+    }},
+    userId);
+    
+  const cardElement = card.generateCard();
+
+  return cardElement
+}
+
+const popupDeleteCard = new PopupWithConfirmation('.popup_delete-card');
+popupDeleteCard.setEventListeners();
 
 popupImage.setEventListeners();
 popupEditForm.setEventListeners();

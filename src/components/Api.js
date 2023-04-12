@@ -70,7 +70,7 @@ export class Api {
     // Метод удаления карточки с сервера
     deleteCard(id) {
         return fetch(`${this._url}/cards/${id}`, {
-          method: "DELETE",
+          method: 'DELETE',
           headers: this._headers,
         }).then(res => this._checkResponse(res));
       }
@@ -78,28 +78,15 @@ export class Api {
     // Метод отправки данных об установке/снятии лайка на сервер
     likeCard(id) {
         return fetch(`${this._url}/cards/${id}/likes`, {
-          method: "PUT",
+          method: 'PUT',
           headers: this._headers,
         }).then(res => this._checkResponse(res));
       }
     
       deleteLike(id) {
         return fetch(`${this._url}/cards/${id}/likes`, {
-          method: "DELETE",
+          method: 'DELETE',
           headers: this._headers,
         }).then(res => this._checkResponse(res));
       }
-//   toggleLikeCard(id) {
-//     if (!isLiked) {
-//       return fetch(`${this._url}/cards/${id}/likes`, {
-//         method: 'PUT',
-//         headers: this._headers
-//       }).then(res => this._checkResponse(res))
-//     } else {
-//       return fetch(`${this._url}/cards/${id}/likes`, {
-//         method: 'DELETE',
-//         headers: this._headers
-//       }).then(res => this._checkResponse(res))
-//     }
-//   }
 }
